@@ -1,9 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class MyCard extends StatefulWidget {
-  final double? minHeight;
+  final double minHeight;
   final EdgeInsets? padding;
   final Color? backgroundColor;
   final Color? foregroundColor;
@@ -12,10 +10,11 @@ class MyCard extends StatefulWidget {
   final Color? circleColor;
   final Image? image;
   final Offset? circleOffset;
+  final double circleRadius;
 
   const MyCard({
     super.key,
-    this.minHeight,
+    this.minHeight = 60,
     this.padding,
     this.backgroundColor,
     this.foregroundColor,
@@ -24,6 +23,7 @@ class MyCard extends StatefulWidget {
     this.circleColor,
     this.image,
     this.circleOffset,
+    this.circleRadius = 60,
   });
 
   @override
@@ -31,41 +31,21 @@ class MyCard extends StatefulWidget {
 }
 
 class _MyCardState extends State<MyCard> {
-  final GlobalKey _containerKey = GlobalKey();
-  double _containerHeight = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback(_getContainerHeight);
-  }
-
-  void _getContainerHeight(_) {
-    final RenderBox renderBox =
-        _containerKey.currentContext!.findRenderObject() as RenderBox;
-    final size = renderBox.size;
-    setState(() {
-      _containerHeight = size.height;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    double minDefaultHeight = 60;
-    double minHeight = max(widget.minHeight ?? 0, minDefaultHeight);
     var cardPadding = widget.padding ??
         const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10);
 
-    var containerHeight = max(minHeight, _containerHeight);
+    // var containerHeight = max(widget.minHeight, _containerHeight);
     double circleRadius =
-        containerHeight - cardPadding.top - cardPadding.bottom;
+        widget.circleRadius * 2 - cardPadding.top - cardPadding.bottom;
 
     return Stack(
       children: [
         ConstrainedBox(
-          constraints: BoxConstraints(minHeight: minHeight),
+          constraints: BoxConstraints(minHeight: widget.minHeight),
           child: Container(
-            key: _containerKey,
+            // key: _containerKey,
             padding: widget.padding ??
                 const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
             color: widget.backgroundColor ?? Colors.white,

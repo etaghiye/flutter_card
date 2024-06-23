@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             MyCard(
+              circleRadius: 100,
               circleOffset: const Offset(20, 0),
               minHeight: 200,
               // text: 'Center is a layout widget. Cen xkx x kx m q d fs sl',
