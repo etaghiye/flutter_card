@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class MyCard extends StatefulWidget {
@@ -9,6 +11,7 @@ class MyCard extends StatefulWidget {
   final String text;
   final Color? circleColor;
   final Image? image;
+  final Offset? circleOffset;
 
   const MyCard({
     super.key,
@@ -20,6 +23,7 @@ class MyCard extends StatefulWidget {
     required this.text,
     this.circleColor,
     this.image,
+    this.circleOffset,
   });
 
   @override
@@ -27,19 +31,41 @@ class MyCard extends StatefulWidget {
 }
 
 class _MyCardState extends State<MyCard> {
+  final GlobalKey _containerKey = GlobalKey();
+  double _containerHeight = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(_getContainerHeight);
+  }
+
+  void _getContainerHeight(_) {
+    final RenderBox renderBox =
+        _containerKey.currentContext!.findRenderObject() as RenderBox;
+    final size = renderBox.size;
+    setState(() {
+      _containerHeight = size.height;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    double minHeight = 60;
-    double height = widget.minHeight ?? minHeight;
+    double minDefaultHeight = 60;
+    double minHeight = max(widget.minHeight ?? 0, minDefaultHeight);
     var cardPadding = widget.padding ??
         const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10);
-    double circleRadius = height - cardPadding.top - cardPadding.bottom;
+
+    var containerHeight = max(minHeight, _containerHeight);
+    double circleRadius =
+        containerHeight - cardPadding.top - cardPadding.bottom;
 
     return Stack(
       children: [
         ConstrainedBox(
-          constraints: BoxConstraints(minHeight: height),
+          constraints: BoxConstraints(minHeight: minHeight),
           child: Container(
+            key: _containerKey,
             padding: widget.padding ??
                 const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
             color: widget.backgroundColor ?? Colors.white,
@@ -61,15 +87,16 @@ class _MyCardState extends State<MyCard> {
                             ),
                           ),
                           SizedBox(
-                            width: circleRadius,
+                            width:
+                                circleRadius - (widget.circleOffset?.dx ?? 0),
                           ),
                         ],
                       ),
                     ],
                   ),
                   Positioned(
-                    right: -(circleRadius),
-                    top: -circleRadius / 2,
+                    right: -(circleRadius) - (widget.circleOffset?.dx ?? 0),
+                    top: -circleRadius / 2 - (widget.circleOffset?.dy ?? 0),
                     child: Container(
                       height: circleRadius * 2,
                       width: circleRadius * 2,
