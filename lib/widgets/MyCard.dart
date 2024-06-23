@@ -36,7 +36,6 @@ class _MyCardState extends State<MyCard> {
     var cardPadding = widget.padding ??
         const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10);
 
-    // var containerHeight = max(widget.minHeight, _containerHeight);
     double circleRadius =
         widget.circleRadius * 2 - cardPadding.top - cardPadding.bottom;
 
@@ -45,7 +44,6 @@ class _MyCardState extends State<MyCard> {
         ConstrainedBox(
           constraints: BoxConstraints(minHeight: widget.minHeight),
           child: Container(
-            // key: _containerKey,
             padding: widget.padding ??
                 const EdgeInsets.only(left: 5, right: 5, top: 10, bottom: 10),
             color: widget.backgroundColor ?? Colors.white,

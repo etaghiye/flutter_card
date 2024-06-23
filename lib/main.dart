@@ -55,9 +55,9 @@ class _MyHomePageState extends State<MyHomePage> {
               circleRadius: 100,
               circleOffset: const Offset(20, 0),
               minHeight: 200,
-              // text: 'Center is a layout widget. Cen xkx x kx m q d fs sl',
-              text:
-                  'Center is a layout widget. Cen xkx x kx m q d fs sl slks lk Center is a layout widget. Cen xkx x kx m q d fs sl slks lk  Center is a layout widget. Cen xkx x kx m q d fs sl slks lk  Center is a layout widget. Cen xkx x kx m q d fs sl slks lk  Center is a layout widget. Cen xkx x kx m q d fs sl slks lk  Center is a layout widget. Cen xkx x kx m q d fs sl slks lk ',
+              text: 'Center is a layout widget. Cen xkx x kx m q d fs sl',
+              // text:
+              //     'Center is a layout widget. Cen xkx x kx m q d fs sl slks lk Center is a layout widget. Cen xkx x kx m q d fs sl slks lk  Center is a layout widget. Cen xkx x kx m q d fs sl slks lk  Center is a layout widget. Cen xkx x kx m q d fs sl slks lk  Center is a layout widget. Cen xkx x kx m q d fs sl slks lk  Center is a layout widget. Cen xkx x kx m q d fs sl slks lk ',
               contentPadding: const EdgeInsets.only(left: 10),
               image: Image.asset(
                 'assets/images/img.png',
